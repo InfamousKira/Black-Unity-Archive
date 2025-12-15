@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Black Unity Archive</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>The Black Unity Archive</h1>
+        <nav>
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('timeline')">Timeline</button>
+            <button onclick="showSection('persons')">Persons</button>
+            <button onclick="showSection('movements')">Movements</button>
+            <button onclick="showSection('mindmap')">Mind Map</button>
+            <button onclick="showSection('resources')">Additional Resources</button>
+        </nav>
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Search...">
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <h2>Daily Review</h2>
+            <div id="dailyReviewContent" class="content-card">
+                </div>
+            <h3>Notes</h3>
+            <textarea id="homeNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('homeNotes')"></textarea>
+        </section>
+
+        <section id="timeline">
+            <h2>Historical Timeline</h2>
+            <div id="timelineContainer">
+                </div>
+            <h3>Notes</h3>
+            <textarea id="timelineNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('timelineNotes')"></textarea>
+        </section>
+
+        <section id="persons">
+            <h2>Key Figures</h2>
+            <div id="personsGrid" class="content-grid">
+                </div>
+            <h3>Notes</h3>
+            <textarea id="personsNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('personsNotes')"></textarea>
+        </section>
+
+        <section id="movements">
+            <h2>Important Movements & Events</h2>
+            <div id="movementsGrid" class="content-grid">
+                </div>
+            <h3>Notes</h3>
+            <textarea id="movementsNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('movementsNotes')"></textarea>
+        </section>
+
+        <section id="mindmap">
+            <h2>Connections Mind Map</h2>
+            <div id="mindmapContainer">
+                </div>
+            <h3>Notes</h3>
+            <textarea id="mindmapNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('mindmapNotes')"></textarea>
+        </section>
+
+        <section id="resources">
+            <h2>Additional Resources</h2>
+            <div id="resourcesContent" class="content-list">
+                <h3>Recommended Readings & Links</h3>
+                <ul>
+                    <li><a href="https://www.gutenberg.org/ebooks/408" target="_blank">The Souls of Black Folk by W.E.B. Du Bois</a> (Project Gutenberg)</li>
+                    <li><a href="https://www.gutenberg.org/ebooks/43467" target="_blank">The Negro and the Nation by Hubert H. Harrison</a> (Project Gutenberg)</li>
+                    <li><a href="https://commons.wikimedia.org/wiki/File:The_Philosophy_and_Opinions_of_Marcus_Garvey.pdf" target="_blank">The Philosophy and Opinions of Marcus Garvey (PDF)</a> (Wikimedia Commons)</li>
+                    <li><a href="https://unesdoc.unesco.org/ark:/48223/pf0000092287" target="_blank">UNESCO General History of Africa, Vol. VIII (Section on Pan-Africanism)</a> (UNESCO Digital Library)</li>
+                    </ul>
+                </div>
+            <h3>Notes</h3>
+            <textarea id="resourcesNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('resourcesNotes')"></textarea>
+        </section>
+
+        <section id="detailPage" class="hidden">
+            <button onclick="hideDetailPage()">Back to List</button>
+            <h2 id="detailTitle"></h2>
+            <p id="detailDates"></p>
+            <div id="detailContent"></div>
+            <h3>Sources:</h3>
+            <ul id="detailSources"></ul>
+            <h3>Notes</h3>
+            <textarea id="detailNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('detailNotes')"></textarea>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
