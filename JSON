@@ -1,0 +1,58 @@
+[
+    {
+        "id": "marcus_garvey",
+        "type": "Person",
+        "name": "Marcus Garvey",
+        "dates": "1887-1940",
+        "summary": "Founder of the Universal Negro Improvement Association (UNIA) and a leading proponent of Black Nationalism and the 'Back-to-Africa' movement in the early 20th century.",
+        "key_terms": ["Black Nationalism", "UNIA", "Black Star Line", "Garveyism"],
+        "connections": ["Kwame Nkrumah", "W.E.B. Du Bois"],
+        "detail": "<p>Marcus Garvey's movement, known as Garveyism, was the largest mass movement in Black history, stressing economic self-sufficiency, racial pride, and the eventual repatriation of Black people to Africa. His organization, the UNIA, established businesses like the Black Star Line shipping company, making his vision highly practical and widespread.</p>",
+        "sources": [
+            "The Philosophy and Opinions of Marcus Garvey (Collection)",
+            "The Negro World (UNIA newspaper)"
+        ]
+    },
+    {
+        "id": "web_dubois",
+        "type": "Person",
+        "name": "W.E.B. Du Bois",
+        "dates": "1868-1963",
+        "summary": "Sociologist, historian, and Pan-African activist. He was a co-founder of the NAACP and organized a series of Pan-African Congresses, advocating for political and social equality.",
+        "key_terms": ["Pan-Africanism", "NAACP", "Talented Tenth", "Double Consciousness", "The Crisis"],
+        "connections": ["Marcus Garvey", "Kwame Nkrumah", "Pan-African Congresses"],
+        "detail": "<p>Du Bois is famous for his concept of 'double consciousness,' the internal conflict experienced by Black Americans who must view themselves through the eyes of a society that despises them. He represented a more intellectual, gradual approach to liberation compared to Garvey's mass movement.</p>",
+        "sources": [
+            "The Souls of Black Folk (Book)",
+            "The Conservation of Races (Essay)"
+        ]
+    },
+    {
+        "id": "pan_africanism",
+        "type": "Movement",
+        "name": "Pan-Africanism",
+        "dates": "1900-Present",
+        "summary": "A worldwide intellectual and political movement aimed at strengthening solidarity between all people of African descent, advocating for a united and independent Africa.",
+        "key_terms": ["Unity", "Solidarity", "Decolonization", "OAU/AU"],
+        "connections": ["W.E.B. Du Bois", "Kwame Nkrumah", "Negritude Movement", "Marcus Garvey"],
+        "detail": "<p>The movement took its earliest political form in the Pan-African Congresses organized by Du Bois. Later, it became the foundation for the independence movements across the continent, culminating in the establishment of the Organization of African Unity (OAU) in 1963.</p>",
+        "sources": [
+            "Africa and Unity: The Evolution of Pan-Africanism by Kwame Nkrumah",
+            "History of Pan-Africanism (Scholarly Text)"
+        ]
+    },
+    {
+        "id": "kwame_nkrumah",
+        "type": "Person",
+        "name": "Kwame Nkrumah",
+        "dates": "1909-1972",
+        "summary": "First Prime Minister and President of Ghana. A leading figure in the anti-colonial movement, Nkrumah was a fierce champion of Pan-Africanism, calling for a 'United States of Africa.'",
+        "key_terms": ["Ghanaian Independence", "Consciencism", "African Unity", "Osagyefo"],
+        "connections": ["Pan-Africanism", "Marcus Garvey", "W.E.B. Du Bois"],
+        "detail": "<p>Nkrumah studied and worked closely with George Padmore and was heavily influenced by the ideas of Garvey and Du Bois, eventually welcoming Du Bois to Ghana late in his life. His political philosophy, Consciencism, aimed to integrate African and Western thought.</p>",
+        "sources": [
+            "Africa Must Unite (Book)",
+            "Neo-Colonialism, the Last Stage of Imperialism (Book)"
+        ]
+    }
+]
