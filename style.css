@@ -1,11 +1,13 @@
-/* --- Global Styles & Typography --- */
+/* --- Revised Global Styles & Typography --- */
 :root {
-    --primary-color: #A0522D; /* Sienna (Warm Brown for unity/earth) */
-    --secondary-color: #F8F8FF; /* Ghost White (Light text/backgrounds) */
+    --primary-color: #A0522D; /* Sienna - Warm Brown */
+    --secondary-color: #F8F8FF; /* Ghost White - Light text/backgrounds */
     --background-color: #121212; /* Deep Dark Background */
-    --card-background: #1e1e1e; /* Slightly lighter dark for content cards */
-    --accent-color: #DAA520; /* Goldenrod (Gold accent for excellence/value) */
+    --card-background: #1e1e1e; /* Content cards */
+    --accent-color: #DAA520; /* Goldenrod - Gold accent */
     --font-family: 'Georgia', serif;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
 }
 
 body {
@@ -22,9 +24,10 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-h1 {
-    font-size: 2.5em;
-    margin: 0;
+h2 {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+    margin-top: 0.5em;
 }
 
 /* --- Header & Navigation --- */
@@ -52,13 +55,16 @@ nav button {
     padding: 10px 15px;
     cursor: pointer;
     font-size: 1em;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.1s;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 nav button:hover, nav button:focus {
     background-color: var(--accent-color);
     color: var(--background-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
 }
 
 /* --- Search Bar --- */
@@ -72,39 +78,41 @@ nav button:hover, nav button:focus {
     width: 100%;
     padding: 10px;
     border: 1px solid var(--primary-color);
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     background-color: var(--background-color);
     color: var(--secondary-color);
     font-size: 1em;
+    box-sizing: border-box;
 }
 
-/* --- Main Content Layout --- */
+/* --- Main Content Layout & Cards --- */
 main {
     padding: 2em 5%;
 }
 
 section {
-    display: none; /* All sections are hidden by default */
+    display: none;
     padding: 20px 0;
 }
 
 section.active {
-    display: block; /* Only the active section is shown */
+    display: block;
 }
 
-/* --- General Content Styling --- */
 .content-card {
     background-color: var(--card-background);
     border: 1px solid var(--primary-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .content-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .content-grid {
@@ -115,7 +123,9 @@ section.active {
 
 .card-title {
     color: var(--accent-color);
-    cursor: pointer;
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 /* --- Detailed Page --- */
@@ -123,7 +133,7 @@ section.active {
     padding: 20px;
     background-color: var(--card-background);
     border: 1px solid var(--primary-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
 }
 
 #detailPage button {
@@ -134,6 +144,16 @@ section.active {
     margin-bottom: 20px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color var(--transition-speed);
+}
+
+#detailPage button:hover {
+    background-color: var(--accent-color);
+}
+
+#detailSources li {
+    font-size: 0.9em;
+    margin-bottom: 5px;
 }
 
 /* --- Notes Feature (Textareas) --- */
@@ -142,43 +162,68 @@ textarea {
     min-height: 150px;
     padding: 15px;
     border: 1px solid var(--primary-color);
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     background-color: var(--background-color);
     color: var(--secondary-color);
     margin-top: 10px;
-    box-sizing: border-box; /* Ensures padding is inside the width */
+    box-sizing: border-box;
     font-family: var(--font-family);
     font-size: 1em;
 }
 
-/* --- Timeline Styling (Simple Vertical) --- */
+/* --- TIMELINE Styling (Improved Vertical) --- */
 #timelineContainer {
     position: relative;
     padding: 10px 0;
+    margin-left: 50px; /* Space for the line and dots */
+}
+
+/* The main vertical line */
+#timelineContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -2px;
+    width: 3px;
+    background-color: var(--primary-color);
+    z-index: 1;
 }
 
 .timeline-event {
+    background-color: var(--card-background);
+    border-radius: 5px;
+    padding: 15px;
     margin: 1em 0;
-    border-left: 2px solid var(--accent-color);
-    padding-left: 20px;
     position: relative;
+    border-left: 5px solid var(--accent-color);
+    transition: border-left 0.2s;
 }
 
+.timeline-event:hover {
+    border-left: 5px solid var(--secondary-color);
+}
+
+/* The circular dot marker */
 .timeline-event::before {
     content: '';
     position: absolute;
-    left: -7px;
-    top: 5px;
-    width: 12px;
-    height: 12px;
+    left: -60px; /* Moves the dot outside the main content block */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background-color: var(--primary-color);
-    border: 2px solid var(--accent-color);
+    background-color: var(--card-background);
+    border: 3px solid var(--accent-color);
+    z-index: 2;
+    cursor: pointer;
 }
 
 .timeline-event h4 {
     color: var(--primary-color);
-    margin: 0;
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
 }
 
 .timeline-event p {
@@ -189,26 +234,9 @@ textarea {
 /* --- Mind Map Container --- */
 #mindmapContainer {
     width: 100%;
-    height: 600px; /* Needs a fixed height for the Vis.js library to work */
-    background-color: var(--background-color);
+    height: 600px;
+    background-color: var(--card-background);
     border: 1px solid var(--primary-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     margin-top: 20px;
-}
-
-/* --- Links --- */
-a {
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-a:hover {
-    color: var(--secondary-color);
-    text-decoration: underline;
-}
-
-/* --- Utility Class --- */
-.hidden {
-    display: none !important;
 }
