@@ -1,5 +1,6 @@
 // --- Global Variables ---
-let archiveData = []; // This will hold all the data loaded from data.json
+let archiveData = []; 
+let lastActiveListSection = 'home'; // Tracks the last view for the 'Back' button
 
 // --- Core Initialization Function ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,16 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDataAndBuildInterface();
     // 2. Load User Notes (using localStorage)
     loadAllNotes();
-    // 3. Show the initial Home section
-    showSection('home');
 });
 
 // --- Data Loading and Interface Builder ---
 async function loadDataAndBuildInterface() {
+    const loadingMessage = document.getElementById('loadingMessage');
     try {
         const response = await fetch('data.json');
         archiveData = await response.json();
         
+        // Hide loading message and show the home section
+        loadingMessage.style.display = 'none';
+        showSection('home');
+
         // 1. Build Section Grids (Persons, Movements)
         renderContentGrids(archiveData);
 
@@ -25,13 +29,10 @@ async function loadDataAndBuildInterface() {
 
         // 3. Build Timeline
         renderTimeline(archiveData);
-        
-        // 4. Build Mind Map (this function runs on click to save resources)
-        // renderMindMap(archiveData);
 
     } catch (error) {
         console.error('Error loading or parsing data.json:', error);
-        document.querySelector('main').innerHTML = '<p style="color: red;">Error loading archive data. Please check the data.json file path and format.</p>';
+        loadingMessage.innerHTML = '<p style="color: red;">Error loading archive data. Please check the data.json file path and format.</p>';
     }
 }
 
@@ -49,6 +50,11 @@ function showSection(sectionId) {
         activeSection.classList.add('active');
         activeSection.classList.remove('hidden');
     }
+    
+    // Update tracking for the Back button
+    if (sectionId !== 'detailPage') {
+        lastActiveListSection = sectionId;
+    }
 
     // Special behavior for Mind Map (build it only when the tab is clicked)
     if (sectionId === 'mindmap' && !document.getElementById('mindmapContainer').hasChildNodes()) {
@@ -58,9 +64,8 @@ function showSection(sectionId) {
 
 function hideDetailPage() {
     document.getElementById('detailPage').classList.add('hidden');
-    // Re-show the last active list section (e.g., 'persons' or 'movements')
-    const lastSection = localStorage.getItem('lastActiveListSection') || 'home';
-    showSection(lastSection);
+    // Go back to the last active list section
+    showSection(lastActiveListSection); 
 }
 
 
@@ -70,16 +75,15 @@ function renderDailyReview() {
     const dailyReviewEl = document.getElementById('dailyReviewContent');
     if (!archiveData.length) return;
 
-    // Use a date-based index to make sure it's consistent for the whole day
     const day = new Date();
     const index = Math.floor(day.getTime() / (1000 * 60 * 60 * 24)) % archiveData.length;
     const item = archiveData[index];
 
     dailyReviewEl.innerHTML = `
-        <h3>${item.name} (${item.type})</h3>
+        <h3 class="card-title">${item.name} (${item.type})</h3>
         <p><strong>Period:</strong> ${item.dates}</p>
         <p>${item.summary}</p>
-        <button onclick="showDetail('${item.id}', 'home')">Learn More</button>
+        <button onclick="showDetail('${item.id}')">Learn More</button>
     `;
 }
 
@@ -87,14 +91,18 @@ function renderContentGrids(data) {
     const personsGrid = document.getElementById('personsGrid');
     const movementsGrid = document.getElementById('movementsGrid');
     
-    personsGrid.innerHTML = '';
-    movementsGrid.innerHTML = '';
+    personsGrid.innerHTML = data.length === 0 ? '<p style="color: gray;">No Persons found matching your search.</p>' : '';
+    movementsGrid.innerHTML = data.length === 0 ? '<p style="color: gray;">No Movements/Events found matching your search.</p>' : '';
 
     data.forEach(item => {
         const card = document.createElement('div');
         card.className = 'content-card';
+        // Changed onclick to only call showDetail, as we track the source view with lastActiveListSection
+        card.onclick = () => showDetail(item.id); 
+        
         card.innerHTML = `
-            <h3 class="card-title" onclick="showDetail('${item.id}', '${item.type === 'Person' ? 'persons' : 'movements'}')">${item.name}</h3>
+            <h3 class="card-title">${item.name}</h3>
+            <p><strong>Type:</strong> ${item.type}</p>
             <p><strong>Key Terms:</strong> ${item.key_terms.join(', ')}</p>
         `;
         
@@ -106,46 +114,46 @@ function renderContentGrids(data) {
     });
 }
 
-function showDetail(id, lastSection) {
+function showDetail(id) {
     const item = archiveData.find(d => d.id === id);
     if (!item) return;
 
-    // Hide all list sections and show the detail page
-    document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
-    document.getElementById('detailPage').classList.remove('hidden');
-
-    // Store which section we came from to go back correctly
-    localStorage.setItem('lastActiveListSection', lastSection);
+    // Hide current view and show the detail page
+    showSection('detailPage');
 
     // Populate detail page content
     document.getElementById('detailTitle').textContent = item.name;
     document.getElementById('detailDates').textContent = `Period: ${item.dates}`;
-    document.getElementById('detailContent').innerHTML = item.detail;
+    // InnerHTML allows the detail text to use bold/italics etc. from data.json
+    document.getElementById('detailContent').innerHTML = item.detail; 
 
     // Populate sources
     const sourcesList = document.getElementById('detailSources');
     sourcesList.innerHTML = item.sources.map(src => `<li>${src}</li>`).join('');
 
-    // Load and save detail notes
-    document.getElementById('detailNotes').id = `notes-${item.id}`; // Give it a unique ID for storage
-    loadNotes(`notes-${item.id}`); 
-    document.getElementById('detailNotes').onkeyup = () => saveNotes(`notes-${item.id}`);
+    // Load and save detail notes for this specific entry
+    const notesId = `notes-${item.id}`;
+    const detailNotesArea = document.getElementById('detailNotes');
+    detailNotesArea.id = notesId; // Update the ID
+    loadNotes(notesId); 
+    detailNotesArea.onkeyup = () => saveNotes(notesId);
 }
 
 
-// --- Search Functionality ---
+// --- Search Functionality (Improved) ---
 
 function filterContent() {
     const input = document.getElementById('searchInput');
-    const filter = input.value.toUpperCase();
+    const filter = input.value.toUpperCase().trim();
 
-    // If search is empty, re-render everything
-    if (filter.trim() === '') {
+    if (filter === '') {
         renderContentGrids(archiveData);
-        return;
+        // Do not switch view if search is cleared
+        return; 
     }
 
     const filteredData = archiveData.filter(item => {
+        // Search across name, summary, and key terms
         const nameMatch = item.name.toUpperCase().includes(filter);
         const summaryMatch = item.summary.toUpperCase().includes(filter);
         const keyTermsMatch = item.key_terms.some(term => term.toUpperCase().includes(filter));
@@ -154,7 +162,9 @@ function filterContent() {
     });
 
     renderContentGrids(filteredData);
-    // Force the view to the Persons tab as it shows all filtered results
+    
+    // Automatically switch to the Persons tab to show the filtered results
+    // We update the lastActiveListSection to be 'persons' so 'Back' works correctly
     showSection('persons');
 }
 
@@ -165,7 +175,7 @@ function renderTimeline(data) {
     const timelineEl = document.getElementById('timelineContainer');
     timelineEl.innerHTML = '';
 
-    // Simple sorting by the start date (assuming the dates field starts with a year)
+    // Sort by the first year mentioned in the dates field
     const sortedData = [...data].sort((a, b) => {
         const yearA = parseInt(a.dates.split('-')[0]);
         const yearB = parseInt(b.dates.split('-')[0]);
@@ -175,23 +185,26 @@ function renderTimeline(data) {
     sortedData.forEach(item => {
         const eventDiv = document.createElement('div');
         eventDiv.className = 'timeline-event';
+        eventDiv.onclick = () => showDetail(item.id); // Make the timeline event clickable
         eventDiv.innerHTML = `
             <h4>${item.dates}</h4>
-            <p><strong class="card-title" onclick="showDetail('${item.id}', 'timeline')">${item.name}</strong> (${item.type})</p>
+            <p><strong class="card-title">${item.name}</strong> (${item.type})</p>
+            <p>${item.summary}</p>
         `;
         timelineEl.appendChild(eventDiv);
     });
+    // 
 }
 
 
-// --- Mind Map (Vis.js Network) Rendering ---
+// --- Mind Map (Vis.js Network) Rendering (Improved Options) ---
 function renderMindMap(data) {
     const nodes = [];
     const edges = [];
     const colorMap = {
-        'Person': '#A0522D', // Primary Color
-        'Movement': '#DAA520', // Accent Color
-        'Event': '#F8F8FF' // Secondary Color
+        'Person': '#A0522D', 
+        'Movement': '#DAA520', 
+        'Event': '#F8F8FF' 
     };
 
     // 1. Create Nodes
@@ -200,12 +213,12 @@ function renderMindMap(data) {
             id: item.id,
             label: item.name,
             title: item.summary,
-            color: colorMap[item.type] || '#778899', // Default color if type is missing
-            shape: item.type === 'Person' ? 'dot' : 'box'
+            color: { background: colorMap[item.type] || '#778899', border: '#FFF' },
+            shape: item.type === 'Person' ? 'box' : 'dot' // Switched shapes for contrast
         });
     });
 
-    // 2. Create Edges (Connections)
+    // 2. Create Edges
     data.forEach(sourceItem => {
         if (sourceItem.connections && Array.isArray(sourceItem.connections)) {
             sourceItem.connections.forEach(targetName => {
@@ -215,7 +228,8 @@ function renderMindMap(data) {
                         from: sourceItem.id,
                         to: targetItem.id,
                         arrows: 'to',
-                        title: `${sourceItem.name} connected to ${targetItem.name}`
+                        color: { color: '#A9A9A9' },
+                        dashes: true
                     });
                 }
             });
@@ -229,30 +243,36 @@ function renderMindMap(data) {
 
     const container = document.getElementById('mindmapContainer');
     const options = {
-        layout: {
-            hierarchical: {
-                enabled: false // Disable hierarchical layout for a more natural mind map look
-            }
+        // Improved physics for better cluster separation
+        physics: {
+            enabled: true,
+            forceAtlas2Based: {
+                gravitationalConstant: -50, // Less gravity for better spacing
+                centralGravity: 0.005,
+                springConstant: 0.08
+            },
+            maxVelocity: 5,
+            minVelocity: 0.75,
+            solver: 'forceAtlas2Based',
+            stabilization: { iterations: 1000 }
         },
         interaction: {
             hover: true,
             tooltipDelay: 100
         },
-        physics: {
-            enabled: true,
-            // Configure repulsion or force-atlas for an organic look
-            solver: 'forceAtlas2Based',
-            forceAtlas2Based: {
-                gravitationalConstant: -100,
-                springConstant: 0.08
+        nodes: {
+            font: { color: '#121212' }
+        },
+        edges: {
+            smooth: {
+                enabled: true,
+                type: 'dynamic'
             }
         }
     };
 
     new vis.Network(container, networkData, options);
-    // 
 }
-
 
 // --- Notes Persistence (localStorage) ---
 
@@ -278,5 +298,4 @@ function loadAllNotes() {
     loadNotes('movementsNotes');
     loadNotes('mindmapNotes');
     loadNotes('resourcesNotes');
-    // Note: Detail page notes are loaded dynamically in showDetail()
 }
