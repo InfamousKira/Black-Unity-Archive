@@ -10,18 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAllNotes();
 });
 
-// --- Data Loading and Interface Builder ---
+// --- Data Loading and Interface Builder (REPLACE THIS FUNCTION IN SCRIPT.JS) ---
 async function loadDataAndBuildInterface() {
     const loadingMessage = document.getElementById('loadingMessage');
     try {
         const response = await fetch('data.json');
         archiveData = await response.json();
         
-        // Hide loading message and show the home section
-        loadingMessage.style.display = 'none';
-        showSection('home');
-
-        // 1. Build Section Grids (Persons, Movements)
+        // --- CORE FIXES START HERE ---
+        
+        // 1. Build Section Grids (Needs to happen first)
         renderContentGrids(archiveData);
 
         // 2. Set Daily Review Entry
@@ -29,6 +27,12 @@ async function loadDataAndBuildInterface() {
 
         // 3. Build Timeline
         renderTimeline(archiveData);
+        
+        // 4. Show the initial Home section *and then* hide the loading message
+        showSection('home');
+        loadingMessage.style.display = 'none'; // Hides the message after content is ready
+
+        // --- CORE FIXES END HERE ---
 
     } catch (error) {
         console.error('Error loading or parsing data.json:', error);
