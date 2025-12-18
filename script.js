@@ -312,3 +312,43 @@ function loadAllNotes() {
     loadNotes('mindmapNotes');
     loadNotes('resourcesNotes');
 }
+// --- Function to Save Mind Map as Image ---
+function downloadMindMap() {
+    const container = document.getElementById('mindmapContainer');
+    // Vis.js renders to a <canvas> element inside the container
+    const canvas = container.getElementsByTagName('canvas')[0];
+    
+    if (canvas) {
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.download = 'Black-Unity-Archive-Mindmap.png';
+        // Convert canvas to a data URL (PNG)
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    } else {
+        alert("Wait for the map to load before saving!");
+    }
+}
+
+// --- Function to Copy Notes to Clipboard ---
+function copyNotes(textareaId) {
+    const textarea = document.getElementById(textareaId);
+    if (textarea && textarea.value) {
+        // Use the modern Clipboard API
+        navigator.clipboard.writeText(textarea.value).then(() => {
+            // Visual feedback that it worked
+            const originalText = event.target.innerText;
+            event.target.innerText = "Copied!";
+            event.target.style.backgroundColor = "#2e7d32"; // Green success color
+            
+            setTimeout(() => {
+                event.target.innerText = originalText;
+                event.target.style.backgroundColor = ""; // Reset color
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    } else {
+        alert("Nothing to copy yet!");
+    }
+}
