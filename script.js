@@ -30,6 +30,7 @@ async function loadDataAndBuildInterface() {
         
         // 4. Show the initial Home section *and then* hide the loading message
         showSection('home');
+        runWelcomeSequence(); //
         loadingMessage.style.display = 'none'; // Hides the message after content is ready
 
         // --- CORE FIXES END HERE ---
@@ -351,4 +352,39 @@ function copyNotes(textareaId) {
     } else {
         alert("Nothing to copy yet!");
     }
+}
+
+function runWelcomeSequence() {
+    const welcomeText = document.getElementById('welcome-text');
+    const quotes = [
+        "\"We have survived the roughest game in the history of the world. No matter what we say against ourselves, no matter what our limits and hang-ups are, we have come through something, and if we can get this far, we can get further.\" — James Baldwin",
+        "\"I go away to prepare a place for you, and where I am ye may be also.\" — Harriet Tubman",
+        "\"May your words echo enough to cause an avalanche and your actions ripple into waves. Knowledge is power. A closed mind is a weak mind.\" — Love, Kira"
+    ];
+
+    let currentQuote = 0;
+
+    function showNextQuote() {
+        if (currentQuote < quotes.length) {
+            // 1. Set the text
+            welcomeText.innerText = quotes[currentQuote];
+            // 2. Fade in
+            welcomeText.classList.add('visible');
+
+            // 3. Wait for 5 seconds (reading time)
+            setTimeout(() => {
+                // If it's the last quote, don't fade out—let it stay!
+                if (currentQuote < quotes.length - 1) {
+                    welcomeText.classList.remove('visible');
+                    // 4. Wait for fade out to finish, then show next
+                    setTimeout(() => {
+                        currentQuote++;
+                        showNextQuote();
+                    }, 1500);
+                }
+            }, 5000); 
+        }
+    }
+
+    showNextQuote();
 }
