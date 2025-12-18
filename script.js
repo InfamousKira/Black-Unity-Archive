@@ -371,23 +371,23 @@ function runWelcomeSequence() {
 
     function showNextQuote() {
         if (currentQuote < quotes.length) {
-            // 1. Set the text
             welcomeText.innerText = quotes[currentQuote];
-            // 2. Fade in
             welcomeText.classList.add('visible');
 
-            // 3. Wait for 5 seconds (reading time)
+            // --- TIMING LOGIC ---
+            // Baldwin (index 0) gets 7000ms (7s). Others get 5000ms (5s).
+            let displayTime = (currentQuote === 0) ? 7000 : 5000;
+
             setTimeout(() => {
-                // If it's the last quote, don't fade out—let it stay!
                 if (currentQuote < quotes.length - 1) {
                     welcomeText.classList.remove('visible');
-                    // 4. Wait for fade out to finish, then show next
+                    
                     setTimeout(() => {
                         currentQuote++;
                         showNextQuote();
-                    }, 1500);
+                    }, 1500); // Wait for fade-out before showing next
                 }
-            }, 5000); 
+            }, displayTime); 
         }
     }
 
