@@ -61,12 +61,13 @@
         </section>
 
         <section id="mindmap">
-            <h2>Connections Mind Map</h2>
-            <div id="mindmapContainer">
-                </div>
-            <h3>Notes</h3>
-            <textarea id="mindmapNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('mindmapNotes')"></textarea>
-        </section>
+    <h2>Connections Mind Map</h2>
+    <button onclick="resetMindMap()" style="margin-bottom: 10px; background-color: var(--accent-color); color: var(--background-color);">Reset Map View</button>
+    
+    <div id="mindmapContainer"></div>
+    <h3>Notes</h3>
+    <textarea id="mindmapNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('mindmapNotes')"></textarea>
+</section>
 
         <section id="resources">
             <h2>Additional Resources</h2>
