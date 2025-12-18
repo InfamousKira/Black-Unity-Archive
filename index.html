@@ -62,7 +62,11 @@
 
         <section id="mindmap">
     <h2>Connections Mind Map</h2>
-    <button onclick="resetMindMap()" style="margin-bottom: 10px; background-color: var(--accent-color); color: var(--background-color);">Reset Map View</button>
+    <div class="button-group" style="margin-bottom: 10px;">
+        <button onclick="resetMindMap()" style="background-color: var(--accent-color); color: var(--background-color);">Reset Map View</button>
+        <button onclick="downloadMindMap()" style="background-color: var(--primary-color); color: var(--secondary-color);">Save Map as Image</button>
+        <button onclick="copyNotes('mindmapNotes')" style="background-color: #555; color: white;">Copy Notes</button>
+    </div>
     
     <div id="mindmapContainer"></div>
     <h3>Notes</h3>
@@ -84,16 +88,21 @@
             <textarea id="resourcesNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('resourcesNotes')"></textarea>
         </section>
 
-        <section id="detailPage" class="hidden">
-            <button onclick="hideDetailPage()">Back to List</button>
-            <h2 id="detailTitle"></h2>
-            <p id="detailDates"></p>
-            <div id="detailContent"></div>
-            <h3>Sources:</h3>
-            <ul id="detailSources"></ul>
-            <h3>Notes</h3>
-            <textarea id="detailNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('detailNotes')"></textarea>
-        </section>
+       <section id="detailPage" class="hidden">
+    <button onclick="hideDetailPage()">Back to List</button>
+    <h2 id="detailTitle"></h2>
+    <p id="detailDates"></p>
+    <div id="detailContent"></div>
+    
+    <h3>Sources:</h3>
+    <ul id="detailSources"></ul>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3>Notes</h3>
+        <button onclick="copyNotes(document.getElementById('detailNotes').id)" style="padding: 5px 10px; font-size: 0.8em;">Copy Notes</button>
+    </div>
+    <textarea id="detailNotes" placeholder="Type your personal notes here..." onkeyup="saveNotes('detailNotes')"></textarea>
+</section>
     </main>
 
     <script src="script.js"></script>
