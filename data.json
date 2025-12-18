@@ -54,5 +54,137 @@
             "Africa Must Unite (Book)",
             "Neo-Colonialism, the Last Stage of Imperialism (Book)"
         ]
+    },
+    {
+        "id": "thomas_sankara",
+        "type": "Person",
+        "name": "Thomas Sankara",
+        "dates": "1949-1987",
+        "summary": "The 'Upright Man' and revolutionary President of Burkina Faso who championed African self-reliance.",
+        "key_terms": ["Burkina Faso", "Self-Reliance", "Anti-Colonialism", "Women's Rights"],
+        "connections": ["Kwame Nkrumah", "Pan-Africanism"],
+        "detail": "<p>Sankara renamed his country from Upper Volta to Burkina Faso ('Land of Upright People'). He launched massive programs for vaccinations, tree planting to stop desertification, and promoted domestic product consumption to end dependency on foreign aid.</p>",
+        "sources": ["Thomas Sankara Speaks (Book)", "The Upright Man (Documentary)"]
+    },
+    {
+        "id": "claudia_jones",
+        "type": "Person",
+        "name": "Claudia Jones",
+        "dates": "1915-1964",
+        "summary": "Trinidadian-born journalist and activist who founded the first major Black newspaper in the UK.",
+        "key_terms": ["West Indian Gazette", "Notting Hill Carnival", "Black Feminism", "Marxism"],
+        "connections": ["Marcus Garvey", "Pan-Africanism"],
+        "detail": "<p>Known as the 'Mother of Black Consciousness in Britain,' she founded the West Indian Gazette and was a driving force behind the creation of the Notting Hill Carnival as a way to unite the community through culture after racial attacks.</p>",
+        "sources": ["Beyond Containment (Book)", "Left of Karl Marx by Carole Boyce Davies"]
+    },
+    {
+        "id": "frantz_fanon",
+        "type": "Person",
+        "name": "Frantz Fanon",
+        "dates": "1925-1961",
+        "summary": "Psychiatrist and revolutionary from Martinique whose work focused on the psychology of colonialism.",
+        "key_terms": ["Decolonization", "Psychology", "FLN", "Revolutionary Violence"],
+        "connections": ["Pan-Africanism", "Negritude Movement"],
+        "detail": "<p>His seminal works, <i>The Wretched of the Earth</i> and <i>Black Skin, White Masks</i>, remain foundational texts for understanding the mental and physical effects of colonial oppression and the necessity of liberation.</p>",
+        "sources": ["The Wretched of the Earth (Book)", "Black Skin, White Masks (Book)"]
+    },
+    {
+        "id": "steve_biko",
+        "type": "Person",
+        "name": "Steve Biko",
+        "dates": "1946-1977",
+        "summary": "Anti-apartheid activist and the father of the Black Consciousness Movement in South Africa.",
+        "key_terms": ["Black Consciousness", "South Africa", "Apartheid", "SASO"],
+        "connections": ["Pan-Africanism", "Black Power Movement"],
+        "detail": "<p>Biko famously stated, 'The most potent weapon in the hands of the oppressor is the mind of the oppressed.' He empowered Black South Africans to take pride in their identity and lead their own liberation.</p>",
+        "sources": ["I Write What I Like (Book)", "Biko (Biography by Donald Woods)"]
+    },
+    {
+        "id": "negritude_movement",
+        "type": "Movement",
+        "name": "Negritude Movement",
+        "dates": "1930s-1950s",
+        "summary": "A literary and ideological movement led by Francophone Black intellectuals to celebrate African culture.",
+        "key_terms": ["Léopold Senghor", "Aimé Césaire", "Culture", "Poetry"],
+        "connections": ["Pan-Africanism", "Frantz Fanon"],
+        "detail": "<p>Born in Paris, the movement sought to reclaim African values and identity from French colonial assimilation. It used poetry and literature to argue for the inherent dignity of Black civilizations.</p>",
+        "sources": ["Return to My Native Land (Césaire)", "The Negritude Poets (Anthology)"]
+    },
+    {
+        "id": "black_panther_party",
+        "type": "Movement",
+        "name": "Black Panther Party",
+        "dates": "1966-1982",
+        "summary": "A revolutionary organization in the US that advocated for self-defense and community social programs.",
+        "key_terms": ["Self-Defense", "Ten-Point Program", "Free Breakfast", "Huey P. Newton"],
+        "connections": ["Black Power Movement", "Stokely Carmichael"],
+        "detail": "<p>While famous for their armed patrols, the Panthers also created 'Survival Programs' like free medical clinics and breakfast for children, embodying the principle of community care and self-determination.</p>",
+        "sources": ["The Black Panther Party: A Graphic Novel History", "Revolutionary Suicide (Newton)"]
+    },
+    {
+        "id": "haitian_revolution",
+        "type": "Event",
+        "name": "The Haitian Revolution",
+        "dates": "1791-1804",
+        "summary": "The only successful slave revolt in history that led to the founding of a free Black state.",
+        "key_terms": ["Toussaint L'Ouverture", "Independence", "Anti-Slavery", "Freedom"],
+        "connections": ["Pan-Africanism"],
+        "detail": "<p>Haiti's victory over France, England, and Spain sent shockwaves through the world and served as a beacon of hope for enslaved and colonized people for centuries to come.</p>",
+        "sources": ["The Black Jacobins (C.L.R. James)", "Haitian Revolutionary Studies (Geggus)"]
+    },
+    {
+        "id": "amy_jacques_garvey",
+        "type": "Person",
+        "name": "Amy Jacques Garvey",
+        "dates": "1895-1973",
+        "summary": "Journalist and activist who was a key leader of the UNIA and the primary editor of Garveyism's core texts.",
+        "key_terms": ["UNIA", "The Negro World", "Garveyism", "Pan-Africanism"],
+        "connections": ["Marcus Garvey", "Pan-Africanism"],
+        "detail": "<p>While Marcus Garvey was imprisoned, Amy Jacques Garvey led the UNIA, managed its finances, and published 'The Philosophy and Opinions of Marcus Garvey.' She was a pioneer of 'Black Cross Nurses' and integrated feminist ideals into the Black Nationalist movement.</p>",
+        "sources": ["The Philosophy and Opinions of Marcus Garvey (Editor)", "Garvey and Garveyism (Book)"]
+    },
+    {
+        "id": "winnie_mandela",
+        "type": "Person",
+        "name": "Winnie Madikizela-Mandela",
+        "dates": "1936-2018",
+        "summary": "South African anti-apartheid activist and politician known as the 'Mother of the Nation'.",
+        "key_terms": ["Apartheid", "South Africa", "ANC", "Resistance"],
+        "connections": ["Steve Biko", "Pan-Africanism"],
+        "detail": "<p>Winnie was a fierce and uncompromising leader of the struggle against Apartheid. Despite constant harassment, house arrest, and imprisonment by the state, she remained a symbol of resistance and a voice for the marginalized when many others were silenced.</p>",
+        "sources": ["491 Days: Prisoner Number 1323/69 (Book)", "Winnie (Documentary)"]
+    },
+    {
+        "id": "funmilayo_ransome_kuti",
+        "type": "Person",
+        "name": "Funmilayo Ransome-Kuti",
+        "dates": "1900-1978",
+        "summary": "Nigerian educator, political campaigner, and women's rights activist often called the 'Mother of Africa'.",
+        "key_terms": ["Abeokuta Women's Union", "Independence", "Suffrage", "Nigeria"],
+        "connections": ["Pan-Africanism", "Kwame Nkrumah"],
+        "detail": "<p>A powerhouse in Nigerian politics, she led thousands of women in protests against unfair taxes and for women's voting rights. She was the first woman in Nigeria to drive a car and was a lifelong advocate for African socialism and independence.</p>",
+        "sources": ["For Women and the Nation: Funmilayo Ransome-Kuti of Nigeria (Book)"]
+    },
+    {
+        "id": "wangari_maathai",
+        "type": "Person",
+        "name": "Wangari Maathai",
+        "dates": "1940-2011",
+        "summary": "Kenyan environmental and political activist; the first African woman to win the Nobel Peace Prize.",
+        "key_terms": ["Green Belt Movement", "Environmentalism", "Democracy", "Sustainability"],
+        "connections": ["Pan-Africanism", "African Unity"],
+        "detail": "<p>She founded the Green Belt Movement, which combined community development and environmental conservation by teaching women to plant trees. She linked ecological health to democratic governance and peace, famously saying, 'You cannot protect the environment unless you empower people.'</p>",
+        "sources": ["Unbowed (Memoir)", "The Green Belt Movement (Book)"]
+    },
+    {
+        "id": "miriam_makeba",
+        "type": "Person",
+        "name": "Miriam Makeba",
+        "dates": "1932-2008",
+        "summary": "South African singer and civil rights activist known worldwide as 'Mama Africa'.",
+        "key_terms": ["Anti-Apartheid", "Cultural Activism", "Grammy Winner", "Exile"],
+        "connections": ["South Africa", "Pan-Africanism", "Kwame Nkrumah"],
+        "detail": "<p>Makeba used her global fame to testify against Apartheid at the United Nations. She lived in exile for over 30 years, often staying in Guinea as a guest of Sékou Touré. Her music was a bridge that connected the African continent to the diaspora in the US and beyond.</p>",
+        "sources": ["Makeba: My Story (Autobiography)"]
     }
 ]
