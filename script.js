@@ -42,7 +42,7 @@ async function loadDataAndBuildInterface() {
 
 // --- Navigation and Section Management ---
 function showSection(sectionId) {
-    // Hide all sections first
+    // Hide all sections
     document.querySelectorAll('section').forEach(section => {
         section.classList.remove('active');
         section.classList.add('hidden');
@@ -55,13 +55,18 @@ function showSection(sectionId) {
         activeSection.classList.remove('hidden');
     }
     
-    // Update tracking for the Back button
     if (sectionId !== 'detailPage') {
         lastActiveListSection = sectionId;
     }
 
-    // Special behavior for Mind Map (build it only when the tab is clicked)
-    if (sectionId === 'mindmap' && !document.getElementById('mindmapContainer').hasChildNodes()) {
+    // --- THE FIX IS HERE ---
+    if (sectionId === 'home') {
+        renderDailyReview();
+    } else if (sectionId === 'mindmap') {
+        // We clear the container and rebuild it every time the tab is clicked
+        // This ensures the map correctly calculates the size of the box
+        const container = document.getElementById('mindmapContainer');
+        container.innerHTML = ''; 
         renderMindMap(archiveData);
     }
 }
