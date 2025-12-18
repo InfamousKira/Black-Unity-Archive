@@ -30,7 +30,12 @@ async function loadDataAndBuildInterface() {
         
         // 4. Show the initial Home section *and then* hide the loading message
         showSection('home');
-        runWelcomeSequence(); //
+        
+        // Add a 100ms delay to ensure the element is visible before animating
+        setTimeout(() => {
+            runWelcomeSequence();
+        }, 100);
+        
         loadingMessage.style.display = 'none'; // Hides the message after content is ready
 
         // --- CORE FIXES END HERE ---
