@@ -30,6 +30,20 @@ h2 {
     margin-top: 0.5em;
 }
 
+/* --- Welcome Message Animation --- */
+.fade-text {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    color: var(--accent-color);
+    font-size: 1.4em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.fade-text.visible {
+    opacity: 1;
+}
+
 /* --- Header & Navigation --- */
 header {
     background-color: var(--card-background);
