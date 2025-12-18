@@ -207,6 +207,7 @@ function renderTimeline(data) {
 
 
 // --- Mind Map (Vis.js Network) Rendering (Improved Options) ---
+// --- Updated Mind Map Function with Light Labels ---
 function renderMindMap(data) {
     const nodes = [];
     const edges = [];
@@ -216,18 +217,23 @@ function renderMindMap(data) {
         'Event': '#F8F8FF' 
     };
 
-    // 1. Create Nodes
     data.forEach(item => {
         nodes.push({
             id: item.id,
             label: item.name,
             title: item.summary,
-            color: { background: colorMap[item.type] || '#778899', border: '#FFF' },
-            shape: item.type === 'Person' ? 'box' : 'dot' // Switched shapes for contrast
+            color: { 
+                background: colorMap[item.type] || '#778899', 
+                border: '#FFF',
+                highlight: { background: '#DAA520', border: '#FFF' }
+            },
+            shape: 'box',
+            margin: 10,
+            // 🟢 FIX: Light color for labels
+            font: { color: '#F8F8FF', size: 16, face: 'Georgia' } 
         });
     });
 
-    // 2. Create Edges
     data.forEach(sourceItem => {
         if (sourceItem.connections && Array.isArray(sourceItem.connections)) {
             sourceItem.connections.forEach(targetName => {
@@ -237,8 +243,8 @@ function renderMindMap(data) {
                         from: sourceItem.id,
                         to: targetItem.id,
                         arrows: 'to',
-                        color: { color: '#A9A9A9' },
-                        dashes: true
+                        color: { color: '#DAA520', opacity: 0.4 },
+                        width: 2
                     });
                 }
             });
@@ -252,35 +258,33 @@ function renderMindMap(data) {
 
     const container = document.getElementById('mindmapContainer');
     const options = {
-        // Improved physics for better cluster separation
         physics: {
             enabled: true,
-            forceAtlas2Based: {
-                gravitationalConstant: -50, // Less gravity for better spacing
-                centralGravity: 0.005,
-                springConstant: 0.08
-            },
-            maxVelocity: 5,
-            minVelocity: 0.75,
-            solver: 'forceAtlas2Based',
-            stabilization: { iterations: 1000 }
+            stabilization: { iterations: 200 }
         },
         interaction: {
             hover: true,
-            tooltipDelay: 100
+            dragNodes: true, // Allows him to reorganize by dragging
+            navigationButtons: true
         },
-        nodes: {
-            font: { color: '#121212' }
-        },
-        edges: {
-            smooth: {
-                enabled: true,
-                type: 'dynamic'
-            }
+        manipulation: {
+            enabled: false // Set to true if you want him to be able to manually add lines
         }
     };
 
-    new vis.Network(container, networkData, options);
+    // Store the network in a variable so we can access it for the reset
+    window.network = new vis.Network(container, networkData, options);
+}
+
+// 🟢 NEW FUNCTION: Reset the Map
+function resetMindMap() {
+    if (window.network) {
+        window.network.fit(); // Zooms back out to show everything
+        // Or, to completely rebuild it:
+        const container = document.getElementById('mindmapContainer');
+        container.innerHTML = '';
+        renderMindMap(archiveData);
+    }
 }
 
 // --- Notes Persistence (localStorage) ---
