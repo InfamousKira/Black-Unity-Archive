@@ -375,8 +375,8 @@ function runWelcomeSequence() {
             welcomeText.classList.add('visible');
 
             // --- TIMING LOGIC ---
-            // Baldwin (index 0) gets 8500ms (8.5s). Others get 5000ms (5s).
-            let displayTime = (currentQuote === 0) ? 8500 : 5000;
+            // Baldwin (index 0) gets 10000ms (10s). Others get 5000ms (5s).
+            let displayTime = (currentQuote === 0) ? 10000 : 5000;
 
             setTimeout(() => {
                 if (currentQuote < quotes.length - 1) {
